@@ -64,6 +64,17 @@ type Window interface {
 	SetRenderFunc(RenderFunc)
 	GetRenderFunc() RenderFunc
 
+	SetClearColor([4]float32)
+	GetClearColor() [4]float32
+
+	AppendShader(Shader)
+	GetShader(int) Shader
+	GetShaderNum() int
+
+	AppendTexture(Texture)
+	GetTexture(int) Texture
+	GetTextureNum() int
+
 	// Flush renders one frame of window (by calling RenderFunc function)
 	// and updates the current status of window.
 	Flush()

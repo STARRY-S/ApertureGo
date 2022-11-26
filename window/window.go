@@ -29,7 +29,11 @@ type WindowObj struct {
 	title           string
 	renderFunc      ap.RenderFunc
 	backgroundColor [4]float32
-	glfwWindow      *glfw.Window
+
+	shaders  []ap.Shader
+	textures []ap.Texture
+
+	glfwWindow *glfw.Window
 
 	rendering   bool
 	initialized bool
@@ -154,7 +158,7 @@ func (w *WindowObj) Init(initParam interface{}) error {
 	w.rendering = true
 	w.backgroundColor = p.BackgroundColor
 
-	w.MakeContextCurrent()
+	w.glfwWindow.MakeContextCurrent()
 	// Call gl.Init only under the presence of an active OpenGL context,
 	// i.e., after MakeContextCurrent.
 	if err := gl.Init(); err != nil {
@@ -243,6 +247,44 @@ func (w *WindowObj) GetRenderFunc() ap.RenderFunc {
 	return w.renderFunc
 }
 
+func (w *WindowObj) SetClearColor(rgba [4]float32) {
+	w.backgroundColor = rgba
+}
+
+func (w *WindowObj) GetClearColor() [4]float32 {
+	return w.backgroundColor
+}
+
+func (w *WindowObj) AppendShader(s ap.Shader) {
+	if s == nil {
+		return
+	}
+	w.shaders = append(w.shaders, s)
+}
+
+func (w *WindowObj) GetShader(pos int) ap.Shader {
+	return w.shaders[pos]
+}
+
+func (w *WindowObj) GetShaderNum() int {
+	return len(w.shaders)
+}
+
+func (w *WindowObj) AppendTexture(tex ap.Texture) {
+	if tex == nil {
+		return
+	}
+	w.textures = append(w.textures, tex)
+}
+
+func (w *WindowObj) GetTexture(pos int) ap.Texture {
+	return w.textures[pos]
+}
+
+func (w *WindowObj) GetTextureNum() int {
+	return len(w.textures)
+}
+
 func (w *WindowObj) Flush() {
 	// update fps
 	w.frameCount++
@@ -250,7 +292,7 @@ func (w *WindowObj) Flush() {
 	w.dt = w.cft - w.lft
 	w.lft = w.cft
 
-	w.MakeContextCurrent()
+	w.glfwWindow.MakeContextCurrent()
 	gl.Clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)
 	gl.ClearColor(
 		w.backgroundColor[0],

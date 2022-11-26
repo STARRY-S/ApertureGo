@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/STARRY-S/aperture"
 	"github.com/STARRY-S/aperture/renderer"
 	"github.com/STARRY-S/aperture/shader"
 	"github.com/STARRY-S/aperture/window"
@@ -15,6 +16,15 @@ const (
 	TestFragmentShader = "test/fragment.glsl"
 	TestGeometryShader = "test/geometry.glsl"
 )
+
+func TestInterface(t *testing.T) {
+	sObj := shader.ShaderObj{}
+	var s aperture.Shader
+	s = &sObj
+	if s.GetID() != 0 {
+		t.Errorf("GetID should be 0")
+	}
+}
 
 func TestLoadAndSet(t *testing.T) {
 	renderer.InitAll()

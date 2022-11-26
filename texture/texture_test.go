@@ -3,6 +3,7 @@ package texture_test
 import (
 	"testing"
 
+	"github.com/STARRY-S/aperture"
 	"github.com/STARRY-S/aperture/renderer"
 	"github.com/STARRY-S/aperture/texture"
 	"github.com/STARRY-S/aperture/window"
@@ -12,6 +13,15 @@ const (
 	TestTextureJPG = "test/test.jpg"
 	TestTexturePNG = "test/test.jpg"
 )
+
+func TestInterface(t *testing.T) {
+	tObj := texture.TextureObj{}
+	var tex aperture.Texture
+	tex = &tObj
+	if tex.GetID() != 0 {
+		t.Errorf("GetID should be 0")
+	}
+}
 
 func TestLoadJPG(t *testing.T) {
 	renderer.InitAll()

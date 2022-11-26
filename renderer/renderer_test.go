@@ -5,9 +5,19 @@ import (
 	"testing"
 	"time"
 
+	ap "github.com/STARRY-S/aperture"
 	"github.com/STARRY-S/aperture/renderer"
 	"github.com/STARRY-S/aperture/window"
 )
+
+func TestInterface(t *testing.T) {
+	rObj := renderer.RendererObj{}
+	var r ap.Renderer
+	r = &rObj
+	if r.GetWindowNum() != 0 {
+		t.Errorf("GetWindowNum should be 0")
+	}
+}
 
 func TestInit(t *testing.T) {
 	renderer.InitAll()
