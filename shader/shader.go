@@ -77,7 +77,7 @@ func (s *ShaderObj) LoadMemory(vs, fs, gs string) error {
 }
 
 // Set function set values to shader program
-func (s ShaderObj) Set(name string, value interface{}) error {
+func (s *ShaderObj) Set(name string, value interface{}) error {
 	if s.id == 0 {
 		// shader not initialized, return
 		return nil
@@ -88,8 +88,12 @@ func (s ShaderObj) Set(name string, value interface{}) error {
 		return fmt.Errorf("Failed to set [%T] for [%s] at location [%v]", value, name, location)
 	}
 	switch value.(type) {
+	case int:
+		gl.Uniform1i(location, int32(value.(int)))
 	case int32:
 		gl.Uniform1i(location, value.(int32))
+	case uint:
+		gl.Uniform1ui(location, uint32(value.(uint)))
 	case uint32:
 		gl.Uniform1ui(location, value.(uint32))
 	case float32:
@@ -119,9 +123,14 @@ func (s ShaderObj) Set(name string, value interface{}) error {
 		m := value.(glm.Mat3x4)
 		gl.UniformMatrix3x4fv(location, 1, false, &m[0])
 	default:
-		return fmt.Errorf("Unsupported value type [%T]", value)
+		return fmt.Errorf("Set: type %T does not supported: %w",
+			value, utils.ErrInvalidDataType)
 	}
 	return nil
+}
+
+func (s *ShaderObj) GetID() uint32 {
+	return s.id
 }
 
 func newProgram(vertexShaderSource, fragmentShaderSource, geometryShaderSource string) (uint32, error) {
@@ -193,8 +202,4 @@ func compileShader(source string, shaderType uint32) (uint32, error) {
 	}
 
 	return shader, nil
-}
-
-func (s ShaderObj) GetID() uint32 {
-	return s.id
 }

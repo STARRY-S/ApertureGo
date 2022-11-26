@@ -13,28 +13,28 @@ import (
 )
 
 type TextureObj struct {
-	file string
-	rgba [4]float32
-	id   uint32
+	fileName string
+	rgba     [4]float32
+	id       uint32
 }
 
 // Load texture image from file
 func (t *TextureObj) Load(f string) error {
 	rgba, err := loadImage(f)
 	if err != nil {
-		return err
+		return fmt.Errorf("Load: %w", err)
 	}
 	id := newTextureRGBA(rgba)
 	if id == 0 {
 		return fmt.Errorf("failed to load texture from file %v", f)
 	}
 	t.id = id
-	t.file = f
+	t.fileName = f
 	return nil
 }
 
 // Load texture image from memory
-func (t *TextureObj) LoadMemory(width, height int32, data *[]byte) error {
+func (t *TextureObj) LoadMemory(width, height int, data *[]byte) error {
 	if width <= 0 || height <= 0 {
 		return utils.ErrInvalidParameter
 	}
@@ -49,8 +49,12 @@ func (t TextureObj) GetID() uint32 {
 	return t.id
 }
 
-func (t TextureObj) GetFileName() string {
-	return t.file
+func (t *TextureObj) SetFileName(name string) {
+	t.fileName = name
+}
+
+func (t *TextureObj) GetFileName() string {
+	return t.fileName
 }
 
 func loadImage(file string) (*image.RGBA, error) {
@@ -75,10 +79,10 @@ func loadImage(file string) (*image.RGBA, error) {
 }
 
 func newTextureRGBA(rgba *image.RGBA) uint32 {
-	return newTextureMemory(int32(rgba.Rect.Size().X), int32(rgba.Rect.Size().X), &rgba.Pix)
+	return newTextureMemory(rgba.Rect.Size().X, rgba.Rect.Size().X, &rgba.Pix)
 }
 
-func newTextureMemory(width, height int32, data *[]byte) uint32 {
+func newTextureMemory(width, height int, data *[]byte) uint32 {
 	var texture uint32
 	gl.GenTextures(1, &texture)
 	gl.ActiveTexture(gl.TEXTURE0)
@@ -91,8 +95,8 @@ func newTextureMemory(width, height int32, data *[]byte) uint32 {
 		gl.TEXTURE_2D,
 		0,
 		gl.RGBA,
-		width,
-		height,
+		int32(width),
+		int32(height),
 		0,
 		gl.RGBA,
 		gl.UNSIGNED_BYTE,

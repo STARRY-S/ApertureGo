@@ -81,6 +81,51 @@ type Window interface {
 	Destroy()
 }
 
+// Shader interface defines the methods required by the shader
+type Shader interface {
+	// Load loads the shader program from file.
+	//
+	// vs is the file path of vertex shader;
+	// fs is the file path of fragment shader;
+	// gs is the file path of geometry shader.
+	Load(vs, fs, gs string) error
+
+	// Load loads the shader program from memory.
+	//
+	// vs is the string value of vertex shader;
+	// fs is the string value of fragment shader;
+	// gs is the string value of geometry shader.
+	LoadMemory(vs, fs, gs string) error
+
+	// Set method sets uniform data to shader program.
+	//
+	// This method supports following data types:
+	// int, int32, uint, uint32, float32, vec2 ([2]float), vec3, vec4
+	// mat2 ([4]float), mat3 ([9]float), mat4, mat2x3, mat3x4.
+	Set(string, interface{}) error
+
+	// GetID gets the shader program ID
+	GetID() uint32
+}
+
+// Texture interface defines the methods required by a texture
+type Texture interface {
+	// Load method loads the image file and convert it to OpenGL texture ID
+	Load(string) error
+
+	// LoadMemory loads the image from memory data,
+	// others same as the Load method.
+	LoadMemory(width, height int, data *[]byte) error
+
+	// GetID gets the ID of texture
+	GetID() uint32
+
+	// SetFileName sets the image file name of texture
+	SetFileName(string)
+	// GetFileName gets the image file name of texture
+	GetFileName() string
+}
+
 type Namer interface {
 	GetName()
 	SetName()
