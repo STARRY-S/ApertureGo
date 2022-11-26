@@ -2,16 +2,18 @@ name: unit test
 on: [push]
 jobs:
   unit-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - run: sudo apt-get install -y mesa-utils libx11-dev xvfb libgl1-mesa-dev xorg-dev
+      - run: sudo apt update
+      - run: sudo apt install -y mesa-utils libx11-dev xvfb libgl1-mesa-dev xorg-dev
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
           go-version: '>=1.19.0'
       - run: go version
+      - run: xvfb-run -a go test -v ./camera
       - run: xvfb-run -a go test -v ./renderer
       - run: xvfb-run -a go test -v ./shader
       - run: xvfb-run -a go test -v ./texture
-      - run: xvfb-run -a go test -v ./camera
       - run: xvfb-run -a go test -v ./utils
+      - run: xvfb-run -a go test -v ./window
