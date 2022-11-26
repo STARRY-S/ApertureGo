@@ -1,17 +1,12 @@
 package texture_test
 
-import (
-	"testing"
-
-	"github.com/STARRY-S/aperture/renderer"
-	"github.com/STARRY-S/aperture/texture"
-)
-
 const (
 	TestTextureJPG = "test/test.jpg"
 	TestTexturePNG = "test/test.jpg"
 )
 
+/**
+TODO: WIP
 func TestLoadJPG(t *testing.T) {
 	r := renderer.RendererObj{}
 	// invisible opengl context
@@ -95,3 +90,4 @@ func TestLoadPNG(t *testing.T) {
 
 	r.Release()
 }
+*/

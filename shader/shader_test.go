@@ -1,19 +1,13 @@
 package shader_test
 
-import (
-	"testing"
-
-	"github.com/STARRY-S/aperture/renderer"
-	"github.com/STARRY-S/aperture/shader"
-	"github.com/engoengine/glm"
-)
-
 const (
 	TestVertexShader   = "test/vertex.glsl"
 	TestFragmentShader = "test/fragment.glsl"
 	TestGeometryShader = "test/geometry.glsl"
 )
 
+/**
+TODO: WIP
 func TestLoadAndSet(t *testing.T) {
 	// Initialize a invisible OpenGL Context
 	r := renderer.RendererObj{}
@@ -56,3 +50,4 @@ func TestLoadAndSet(t *testing.T) {
 	r.Render()
 	r.Release()
 }
+*/

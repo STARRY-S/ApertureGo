@@ -1,11 +1,13 @@
 package utils
 
-import "fmt"
+import "errors"
 
 var (
-	ErrInvalidParameter = fmt.Errorf("invalid parameter")
-	ErrInvalidPointer   = fmt.Errorf("invalid pointer")
-	ErrInvalidFilePath  = fmt.Errorf("invalid file path")
-	ErrReInitialize     = fmt.Errorf("resource already initialized")
-	ErrEmptyFile        = fmt.Errorf("empty file")
+	ErrInvalidDataType  = errors.New("invalid data type")
+	ErrInvalidParameter = errors.New("invalid parameter")
+	ErrInvalidPointer   = errors.New("invalid pointer")
+	ErrInvalidFilePath  = errors.New("invalid file path")
+	ErrReInitialize     = errors.New("re-initialize the initialized resouce")
+	ErrEmptyFile        = errors.New("file is empty")
+	ErrPositionExceed   = errors.New("position exceeded of maximum value")
 )
