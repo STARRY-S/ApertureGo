@@ -1,6 +1,8 @@
 // Package aperture defines the render related interfaces.
 package aperture
 
+import "github.com/engoengine/glm"
+
 // Renderer interface defines methods required by a renderer.
 type Renderer interface {
 	// Init method initializes the renderer.
@@ -137,7 +139,64 @@ type Texture interface {
 	GetFileName() string
 }
 
+// Camera interface defines the methods required by a Euler angle camera.
+type Camera interface {
+	// Init initialize the default camera.
+	Init() error
+
+	// GetViewMatrix calculate the current view matrix of the camera.
+	GetViewMatrix() glm.Mat4
+
+	// GetPosition gets the camera position in the world coordinates.
+	GetPosition() glm.Vec3
+	// SetPosition sets the camera position in the world coordinates.
+	SetPosition(glm.Vec3)
+
+	// GetZoom gets the zoom value of the camera.
+	GetZoom() float32
+	// SetZoom sets the zoom value of the camera.
+	SetZoom(float32)
+
+	// GetFront gets the front vector of the camera.
+	//
+	// If you want to set the front vector of the camera, please use
+	// SetYaw and SetPitch method instead create a SetFront method.
+	GetFront() glm.Vec3
+
+	// SetUp sets the world up vector of the camera.
+	SetUp(glm.Vec3)
+
+	// SetYaw sets the yaw value of the Euler coordinates.
+	SetYaw(float32)
+	// SetPitch sets the pitch value of the Euler coordinates.
+	SetPitch(float32)
+
+	// SetSensitivity sets the sensitivity when moving speed of the camera.
+	SetSensitivity(float32)
+	// SetSpeed sets the moving speed of the camera.
+	SetSpeed(float32)
+
+	// ProcessMovement handles the movements of the camera,
+	// the first param `dt` is the delta time of the frame,
+	// the second param `dir` is the value of the moving direction,
+	// third param `speedUp` is the speed-up value of the camera.
+	ProcessMovement(dt float32, dir int, speedUp float32)
+
+	// ProcessMouseMove handles the mouse/touch-screen movements,
+	// the `xOffset` and `yOffset` are the offsets of the mouse.
+	ProcessMouseMove(xOffset, yOffset float32, pitch bool)
+
+	// ProcessScroll process the scroll of the mouse.
+	ProcessScroll(yOffset float32)
+
+	// GetID gets the ID of the camera.
+	GetID() uint32
+}
+
+// Namer interface defines the methods required by a namer
 type Namer interface {
-	GetName()
+	// GetName gets the name of this object
+	GetName() string
+	// SetName sets the name of this object
 	SetName()
 }

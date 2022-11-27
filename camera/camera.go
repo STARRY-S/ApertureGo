@@ -154,7 +154,7 @@ func (c *CameraObj) ProcessMouseMove(xOffset, yOffset float32, pitch bool) {
 }
 
 func (c *CameraObj) ProcessScroll(yOffset float32) {
-	c.zoom -= yOffset
+	c.zoom -= c.sensitivity * yOffset
 	// TODO: limit max zoom & min zoom
 }
 
