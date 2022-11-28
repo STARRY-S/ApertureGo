@@ -193,6 +193,14 @@ type Camera interface {
 	GetID() uint32
 }
 
+type Mesh interface {
+	// TODO:
+}
+
+type Model interface {
+	// TODO:
+}
+
 // Namer interface defines the methods required by a namer
 type Namer interface {
 	// GetName gets the name of this object
