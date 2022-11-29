@@ -65,7 +65,7 @@ int ap_texture_set_filename(struct AP_Texture *texture, const char *filename)
         }
 
         if (texture->file_name != NULL) {
-                LOGD("AP_FREE old texture path pointer: 0X%p", texture);
+                LOGD("AP_FREE old texture file_name pointer: 0X%p", texture);
                 AP_FREE(texture->file_name);
                 texture->file_name = NULL;
         }
@@ -81,9 +81,9 @@ int ap_texture_set_filepath(struct AP_Texture *texture, const char *fpath)
         }
 
         if (texture->file_path != NULL) {
-                LOGD("AP_FREE old texture path pointer: 0X%p", texture);
-                AP_FREE(texture->file_name);
-                texture->file_name = NULL;
+                LOGD("AP_FREE old texture file_path pointer: 0X%p", texture);
+                AP_FREE(texture->file_path);
+                texture->file_path = NULL;
         }
         texture->file_path = AP_MALLOC(CHAR_SIZE * (strlen(fpath)+1));
         strcpy(texture->file_path, fpath);

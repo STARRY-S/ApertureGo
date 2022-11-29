@@ -5,13 +5,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - run: sudo apt update
-      - run: sudo apt install -y mesa-utils libx11-dev xvfb libgl1-mesa-dev xorg-dev
+      - run: sudo apt install -y mesa-utils libx11-dev xvfb libgl1-mesa-dev xorg-dev build-essential meson ninja-build libassimp-dev
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
           go-version: '>=1.19.0'
       - run: go version
       - run: xvfb-run -a go test -v ./camera
+      - run: ./library/test.sh
       - run: xvfb-run -a go test -v ./renderer
       - run: xvfb-run -a go test -v ./shader
       - run: xvfb-run -a go test -v ./texture

@@ -5,6 +5,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "ap_memory.h"
+#include "ap_cvector.h"
+
 #if defined(__ANDROID__)
 #define AP_PLATFORM_ANDROID  1
 #elif defined(_WIN32) || defined(__CYGWIN__)
@@ -48,6 +51,7 @@
         fprintf(stdout, "%s[AP_WARNG] %s", AP_COLOR_MAGENTA, AP_COLOR_RESET); \
         fprintf(stdout, __VA_ARGS__); \
         fprintf(stdout, "\n");
+#define LOGD(...)
 
 // common used error types
 typedef enum {

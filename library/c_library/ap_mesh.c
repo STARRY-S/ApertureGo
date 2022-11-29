@@ -202,7 +202,7 @@ int ap_mesh_setup(struct AP_Mesh *mesh)
         //                 sizeof(struct AP_Vertex),
         //                 (void*)offsetof(struct AP_Vertex, big_tangent));
 
-        glBindVertexArray(0);
+        // glBindVertexArray(0);
         return 0;
 }
 

@@ -14,6 +14,29 @@
 #include "ap_texture.h"
 #include "ap_mesh.h"
 
+int ap_model_load_ptr(struct AP_Model *model, const char *path);
+
+struct AP_Mesh *ap_model_process_mesh(struct AP_Model *model,
+                        struct aiMesh *mesh,
+                        const struct aiScene *scene);
+
+int ap_model_mesh_push_back(struct AP_Model *model, struct AP_Mesh *mesh);
+
+struct AP_Vector *ap_model_load_material_textures(
+        struct AP_Model *model,
+        struct aiMaterial *mat,
+        enum aiTextureType type,
+        int ap_type);
+
+int ap_model_process_node(
+        struct AP_Model *model,
+        struct aiNode *node,
+        const struct aiScene *scene);
+
+int ap_model_texture_loaded_push_back(
+        struct AP_Model *model,
+        struct AP_Texture *texture);
+
 // int ap_model_free()
 // {
 //         struct AP_Model *model_array = (struct AP_Model*) model_vector.data;
@@ -302,7 +325,7 @@ struct AP_Vector *ap_model_load_material_textures(
         struct AP_Vector vec_model_tex = {
                 .length = model->texture_length,
                 .capacity = model->texture_length,
-                .data = model->texture,
+                .data = (char*) model->texture,
                 .type = AP_VECTOR_TEXTURE
         };
         ap_vector_init(&vec_texture, AP_VECTOR_TEXTURE);
@@ -322,7 +345,7 @@ struct AP_Vector *ap_model_load_material_textures(
                         ptr = ap_texture_generate(
                                 ap_type, str.data, model->directory);
                         if (ptr != NULL) {
-                                ap_vector_push_back(&vec_texture, ptr);
+                                ap_vector_push_back(&vec_texture, (char*) ptr);
                                 ap_model_texture_loaded_push_back(model, ptr);
                                 AP_FREE(ptr);
                                 ptr = NULL;
@@ -348,7 +371,7 @@ struct AP_Vector *ap_model_load_material_textures(
         if (ptr == NULL) {
                 ptr = ap_texture_generate_RGBA(color, AP_TEXTURE_TYPE_DIFFUSE);
                 if (ptr != NULL) {
-                        ap_vector_push_back(&vec_texture, ptr);
+                        ap_vector_push_back(&vec_texture, (char*) ptr);
                         ap_model_texture_loaded_push_back(model, ptr);
                         AP_FREE(ptr);
                         ptr = NULL;
@@ -378,7 +401,8 @@ int ap_model_texture_loaded_push_back(
         model->texture_length++;
         ap_texture_init(texture_new);
         texture_new->type = texture->type;
-        ap_texture_set_path(texture_new, texture->file_name);
+        ap_texture_set_filename(texture_new, texture->file_name);
+        ap_texture_set_filepath(texture_new, texture->file_path);
         // texture_new->id = texture->id;
         memcpy(texture_new->RGBA, texture->RGBA, VEC4_SIZE);
 
