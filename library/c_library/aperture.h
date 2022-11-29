@@ -7,7 +7,7 @@
 #include "ap_model.h"
 #include "ap_mesh.h"
 #include "ap_texture.h"
-#include "utils.h"
+#include "ap_utils.h"
 #include "ap_vertex.h"
 
 #endif
