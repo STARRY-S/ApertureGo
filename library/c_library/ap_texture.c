@@ -2,9 +2,6 @@
 #include "ap_utils.h"
 #include "ap_cvector.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb/stb_image.h"
-
 static inline int EQUAL(float a, float b)
 {
         return ((a - b) < 0.001 && (a - b) > -0.001);
@@ -19,7 +16,6 @@ int ap_texture_init(struct AP_Texture *texture)
         memset(texture, 0, sizeof(struct AP_Texture));
         return 0;
 }
-
 
 struct AP_Texture* ap_texture_generate(
         int type, const char *filename, const char* filepath)
