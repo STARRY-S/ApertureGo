@@ -9,4 +9,6 @@ struct AP_Model {
         char *directory;
 };
 
+int ap_model_init_ptr(struct AP_Model *model, const char *path);
+
 #endif

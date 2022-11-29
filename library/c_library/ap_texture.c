@@ -51,7 +51,7 @@ struct AP_Texture* ap_texture_generate_RGBA(float color[4], int type)
         texture->type = type;
         memcpy(texture->RGBA, color, VEC4_SIZE);
 
-        return 0;
+        return texture;
 }
 
 int ap_texture_set_filename(struct AP_Texture *texture, const char *filename)

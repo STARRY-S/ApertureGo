@@ -31,21 +31,6 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
         case AP_VECTOR_MESH:
                 size = sizeof(struct AP_Mesh);
                 break;
-        // case AP_VECTOR_MODEL:
-        //         size = sizeof(struct AP_Model);
-        //         break;
-        // case AP_VECTOR_CAMERA:
-        //         size = sizeof(struct AP_Camera);
-        //         break;
-        // case AP_VECTOR_AUDIO:
-        //         size = sizeof(struct AP_Audio);
-        //         break;
-        // case AP_VECTOR_PCREATURE:
-        //         size = sizeof(struct AP_PCreature);
-        //         break;
-        // case AP_VECTOR_PBARRIER:
-        //         size = sizeof(struct AP_PBarrier);
-        //         break;
         case AP_VECTOR_CHAR:
                 size = sizeof(char);
                 break;
@@ -55,12 +40,6 @@ int ap_vector_data_type_size(struct AP_Vector *vector)
         case AP_VECTOR_VERTEX:
                 size = sizeof(struct AP_Vertex);
                 break;
-        // case AP_VECTOR_CHARACTOR:
-        //         size = sizeof(struct AP_Character);
-        //         break;
-        // case AP_VECTOR_LIGHT:
-        //         size = sizeof(struct AP_Light);
-        //         break;
         case AP_VECTOR_POINTER:
                 size = sizeof(char*);
                 break;

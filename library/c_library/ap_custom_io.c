@@ -3,11 +3,6 @@
 
 #include <assimp/cfileio.h>
 
-#ifdef LOG_TAG
-#undef LOG_TAG
-#define LOG_TAG "AP_CUSTOM_IO"
-#endif
-
 struct aiFile* ap_custom_file_open_proc(
         C_STRUCT aiFileIO* custom_io,
         const char* file_name,

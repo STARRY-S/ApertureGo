@@ -130,13 +130,10 @@ int ap_memory_print_unreleased()
 
 int ap_memory_release()
 {
-        LOGI("ap_memory: there are %d pointers unreleased",
-                ap_memory_unreleased_num());
         char **ptr_arr = (char**) pointer_vector.data;
         for (int i = 0; i < pointer_vector.length; ++i) {
                 AP_FREE(ptr_arr[i]);
         }
-        free(pointer_vector.data);
-        LOGI("ap_memory: all memory released");
+        pointer_vector.length = 0;
         return 0;
 }

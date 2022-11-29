@@ -23,5 +23,4 @@ library(
     'ap_utils.c',
     'ap_vertex.c',
     dependencies : dependencies,
-    version : '1.0.0',
 )

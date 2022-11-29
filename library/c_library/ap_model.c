@@ -73,6 +73,10 @@ int ap_model_init_ptr(struct AP_Model *model, const char *path)
                 memcpy(dir_path, path, (dir_char_location + 1) * sizeof(char));
                 dir_path[dir_char_location + 1] = '\0';
                 model->directory = dir_path;
+        } else {
+                char *dir_path = AP_MALLOC(sizeof(char));
+                dir_path[0] = '\0';
+                model->directory = dir_path;
         }
 
         return ap_model_load_ptr(model, path);
@@ -366,8 +370,10 @@ struct AP_Vector *ap_model_load_material_textures(
 
         float color[4] = { 0.0f };
         memcpy(color, &ai_color, sizeof(float) * 4);
-        struct AP_Texture *ptr =
-                ap_texture_get_ptr_by_RGBA(&vec_model_tex, color);
+        struct AP_Texture *ptr = NULL;
+        if (vec_model_tex.data != NULL) {
+                ptr = ap_texture_get_ptr_by_RGBA(&vec_model_tex, color);
+        }
         if (ptr == NULL) {
                 ptr = ap_texture_generate_RGBA(color, AP_TEXTURE_TYPE_DIFFUSE);
                 if (ptr != NULL) {
@@ -375,6 +381,8 @@ struct AP_Vector *ap_model_load_material_textures(
                         ap_model_texture_loaded_push_back(model, ptr);
                         AP_FREE(ptr);
                         ptr = NULL;
+                } else {
+                        LOGE("ap_model_load_material_textures: ap_texture_generate_RGBA failed")
                 }
         }
 

@@ -13,13 +13,7 @@ typedef enum {
         AP_VECTOR_TEXTURE,          // Texture
         AP_VECTOR_MESH,             // AP_Mesh
         AP_VECTOR_MODEL,            // Model
-        AP_VECTOR_CAMERA,           // Camera
-        AP_VECTOR_AUDIO,            // Audio
-        AP_VECTOR_PCREATURE,        // Creature
-        AP_VECTOR_PBARRIER,         // Barrier
         AP_VECTOR_CHAR,             // Char
-        AP_VECTOR_CHARACTOR,        // Charactor
-        AP_VECTOR_LIGHT,            // Light
         AP_VECTOR_INT,              // Integer
         AP_VECTOR_UINT,             // Unsigned int
         AP_VECTOR_FLOAT,            // Float
